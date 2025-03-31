@@ -92,8 +92,17 @@ class ConvexNotchedRectangle extends NotchedShape {
           ..lineTo(host.right - radius, host.top)
           ..arcToPoint(Offset(host.right, host.top + radius),
               radius: Radius.circular(radius))
-          ..lineTo(host.right, host.bottom)
-          ..lineTo(host.left, host.bottom)
+          // ..lineTo(host.right, host.bottom)
+          // ..lineTo(host.left, host.bottom)
+          // 👇 Bo góc bottomLeft
+          ..lineTo(host.right, host.bottom - radius)
+          ..arcToPoint(Offset(host.right - radius, host.bottom),
+              radius: Radius.circular(radius))
+
+          // 👇 Bo góc bottomRight
+          ..lineTo(host.left + radius, host.bottom)
+          ..arcToPoint(Offset(host.left, host.bottom - radius),
+              radius: Radius.circular(radius))
           ..close())
         : (Path()
           ..moveTo(host.left, host.top)

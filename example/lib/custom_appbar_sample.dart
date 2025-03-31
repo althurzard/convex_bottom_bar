@@ -75,38 +75,64 @@ class _State extends State<CustomAppBarDemo>
                       )))
                 .toList(growable: false),
           ),
-          bottomNavigationBar: StyleProvider(
-            style: Style(),
-            child: ConvexAppBar(
-              disableDefaultTabController: true,
-              initialActiveIndex: 0,
-              height: 50,
-              top: -30,
-              curveSize: 100,
-              style: TabStyle.fixedCircle,
-              items: [
-                TabItem(title: '2019', icon: Icons.link),
-                TabItem(
-                    icon: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color(0xFFFF5722),
+          bottomNavigationBar: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              SafeArea(
+                minimum:
+                    EdgeInsets.all(16) + EdgeInsets.symmetric(horizontal: 40),
+                child: StyleProvider(
+                  style: Style(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 20,
+                          offset: Offset(0, -2),
+                        ),
+                      ],
+                    ),
+                    child: ConvexAppBar(
+                      disableDefaultTabController: true,
+                      initialActiveIndex: 0,
+                      height: 76,
+                      top: -20,
+                      curveSize: 80,
+                      cornerRadius: 76 / 2,
+                      color: Colors.red,
+                      curve: Curves.easeInOut,
+                      elevation: 0,
+                      style: TabStyle.fixedCircle,
+                      items: [
+                        TabItem(title: '2019', icon: Icons.link),
+                        TabItem(
+                            icon: Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          padding: EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                              color: Colors.blue, shape: BoxShape.circle),
+                          child: Container(),
+                        )),
+                        TabItem(title: "2020", icon: Icons.work),
+                      ],
+                      backgroundColor: Colors.white,
+                      onTabNotify: (i) {
+                        var intercept = i == 1;
+                        if (intercept) {
+                          // Navigator.pushNamed(context, '/fab');
+                        }
+                        return !intercept;
+                      },
+                      onTap: (i) => debugPrint('click $i'),
+                    ),
                   ),
-                  child: Icon(Icons.add, color: Colors.white, size: 40),
-                )),
-                TabItem(title: "2020", icon: Icons.work),
-              ],
-              backgroundColor: _tabBackgroundColor,
-              cornerRadius: 25,
-              onTabNotify: (i) {
-                var intercept = i == 1;
-                if (intercept) {
-                  Navigator.pushNamed(context, '/fab');
-                }
-                return !intercept;
-              },
-              onTap: (i) => debugPrint('click $i'),
-            ),
+                ),
+              )
+            ],
           ),
         ));
   }
